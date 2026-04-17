@@ -22,11 +22,11 @@
         (and 
              (list? attack)
              (= 4 (length attack))
-             (list? (car attack))
-             (null? (member #f (map (lambda (e) (element-type? e)) (car attack))))
-             (string? nombre)
-             (string? descripcion)
-             (procedure? fn)))
+             (list? (get-cost attack))
+             (null? (member #f (map (lambda (e) (element-type? e)) (get-cost attack))))
+             (string? (get-nombre attack))
+             (string? (get-descipcion attack))
+             (procedure? (get-fn attack))))
 
 
 ; ========= SELECTORES ========
