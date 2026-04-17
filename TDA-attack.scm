@@ -23,7 +23,7 @@
              (list? attack)
              (= 4 (length attack))
              (list? cost)
-             (not (null? (filter (lambda (e) (if (element-type? e))) cost)))
+             (null? (member #f (map (lambda (e) (element-type? e)) cost)))
              (string? nombre)
              (string? descripcion)
              (procedure? fn)))
