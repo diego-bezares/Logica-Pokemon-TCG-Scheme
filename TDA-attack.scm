@@ -22,8 +22,8 @@
         (and 
              (list? attack)
              (= 4 (length attack))
-             (list? cost)
-             (null? (member #f (map (lambda (e) (element-type? e)) cost)))
+             (list? (car attack))
+             (null? (member #f (map (lambda (e) (element-type? e)) (car attack))))
              (string? nombre)
              (string? descripcion)
              (procedure? fn)))
