@@ -34,7 +34,9 @@
 
 
 ; ======= CONSTRUCTOR =======
-(define )
+(define (initCard tipoCarta nombre . atributos-especificos)
+        (cond
+             [eq? tipoCarta 'pokemon] ))
 
 
 
