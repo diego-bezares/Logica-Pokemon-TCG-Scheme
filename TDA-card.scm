@@ -36,7 +36,7 @@
 ; ======= CONSTRUCTOR =======
 (define (initCard tipoCarta nombre . atributos-especificos)
         (cond
-             [eq? tipoCarta 'pokemon] ))
+             [eq? tipoCarta 'pokemon] (list tipoCarta nombre (car atributos-especificos) (cadr atributos-especificos) (csddr))))
 
 
 
