@@ -33,11 +33,17 @@
 
 
 
-; ======= CONSTRUCTOR =======
+; ======= CONSTRUCTOR ========
 (define (initCard tipoCarta nombre . atributos-especificos)
         (cons tipoCarta (cons nombre atributos-especificos)))
 
-; = FUNCIÓN DE PERTENENCIA ==
+; == FUNCIÓN DE PERTENENCIA ==
+(define (card? card)
+        (and (list? card)
+             (string? (getNombre card))
+             (cond 
+                   [(eq? (gettipoCarta card) 'pokemon)
+                         (or )])))
 
 
 
