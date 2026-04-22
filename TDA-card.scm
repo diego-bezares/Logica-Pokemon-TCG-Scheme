@@ -35,8 +35,9 @@
 
 ; ======= CONSTRUCTOR =======
 (define (initCard tipoCarta nombre . atributos-especificos)
-        (cond
-             [eq? tipoCarta 'pokemon] (list tipoCarta nombre (car atributos-especificos) (cadr atributos-especificos) (csddr))))
+        (cons tipoCarta (cons nombre atributos-especificos)))
+
+; = FUNCIÓN DE PERTENENCIA ==
 
 
 
