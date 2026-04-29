@@ -40,10 +40,12 @@
 ; == FUNCIÓN DE PERTENENCIA ==
 (define (card? card)
         (and (list? card)
-             (string? (getNombre card))
+             (string? (get-nombre-card card))
              (cond 
-                   [(eq? (gettipoCarta card) 'pokemon)
-                         (or )])))
+                   [(eq? (get-tipoCarta card) 'pokemon)
+                         (and (string? (get-evo card))
+                              (interger? (get-ps card))
+                              ())])))
 
 
 
