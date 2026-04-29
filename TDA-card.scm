@@ -44,7 +44,12 @@
              (cond 
                    [(eq? (get-tipoCarta card) 'pokemon)
                          (and (string? (get-evo card))
-                              (interger? (get-ps card))
+                              (and (integer? (get-ps card)) (> (get-ps card) 0))
+                              (element-type? (get-tipo-poke card))
+                              (element-type? (get-debilidad card))
+                              (element-type? (get-resistencia card))
+                              (integer? (get-coste-ret card))
+                              (boolean? (get-ex card))
                               ())])))
 
 
