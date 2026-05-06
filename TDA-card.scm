@@ -32,6 +32,14 @@
 
 
 
+; ===================================
+; =========== FUNCIONES AUX =========
+; ===================================
+()
+
+
+
+
 
 ; ======= CONSTRUCTOR ========
 (define (initCard tipoCarta nombre . atributos-especificos)
@@ -113,7 +121,54 @@
             (write "El tipo de carta no contiene este elemento.")))
 
 ; ======== MODIFICADORES =======
-
+(define (set-evo card new-evo)
+        (if (eq? (get-tipoCarta card) 'pokemon)
+            (list (get-tipoCarta card) (get-nombre-card card) new-evo (get-ps card) (get-tipo-poke card) (get-debilidad card) (get-debilidad card) (get-resistencia card) (get-coste-ret card))
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-trainerType card)
+        (if (eq? (get-tipoCarta card) 'trainer)
+            (caddr card)
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-ps card)
+        (if (eq? (get-tipoCarta card) 'pokemon)
+            (cadddr card)
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-description card)
+        (if (eq? (get-tipoCarta card) 'trainer)
+            (cadddr card)
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-tipo-poke card)
+        (if (eq? (get-tipoCarta card) 'pokemon)
+            (car (cddddr card))
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-accion card)
+        (if (eq? (get-tipoCarta card) 'trainer)
+            (car (cddddr card))
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-debilidad card)
+        (if (eq? (get-tipoCarta card) 'pokemon)
+            (cadr (cddddr card))
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-resistencia card)
+        (if (eq? (get-tipoCarta card) 'pokemon)
+            (caddr (cddddr card))
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-coste-ret card)
+        (if (eq? (get-tipoCarta card) 'pokemon)
+            (cadddr (cddddr card))
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-ex card)
+        (if (eq? (get-tipoCarta card) 'pokemon)
+            (car (cddddr (cddddr card)))
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-habilidad card)
+        (if (eq? (get-tipoCarta card) 'pokemon)
+            (cadr (cddddr (cddddr card)))
+            (write "El tipo de carta no contiene este elemento.")))
+(define (get-ataques card)
+        (if (eq? (get-tipoCarta card) 'pokemon)
+            (caddr (cddddr (cddddr card)))
+            (write "El tipo de carta no contiene este elemento.")))
 
 
 
