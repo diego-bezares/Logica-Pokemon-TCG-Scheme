@@ -1,4 +1,18 @@
 #lang racket
+(provide get-tipoCarta
+         get-nombre-card
+         get-evo
+         get-trainerType
+         get-ps
+         get-description
+         get-tipo-poke
+         get-accion
+         get-debilidad
+         get-resistencia
+         get-coste-ret
+         get-ex
+         get-habilidad
+         get-ataques)
 
 ; =============================
 ; ========== TDA CARD =========
