@@ -1,4 +1,14 @@
 #lang racket
+(provide initAttack
+         attack?
+         get-cost
+         get-nombre
+         get-descipcion
+         get-fn
+         set-cost
+         set-nombre
+         set-descripcion
+         set-fn)
 
 ; =============================
 ; ========= TDA ATTACK ========
@@ -33,13 +43,13 @@
 
 ; ========= SELECTORES ========
 (define (get-cost attack)
-        (car attack))
+        (list-ref attack 0))
 (define (get-nombre attack)
-        (cadr attack))
+        (list-ref attack 1))
 (define (get-descipcion attack)
-        (caddr attack))
+        (list-ref attack 2))
 (define (get-fn attack)
-        (cadddr attack))
+        (list-ref attack 3))
 
 
 ; ======= MODIFICADORES =======
