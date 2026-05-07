@@ -1,3 +1,5 @@
+#lang racket
+
 ;; Enumeración de tipos de carta
 (define CARD-TYPE '(pokemon energy trainer))
 (define (card-type? t)
