@@ -39,8 +39,21 @@ colorless)))
 (define (randomPuro Xn)
    (modulo (+ (* Xn 1103515245) 12345) 2147483648))
 
+; tomar-n: devuelve los n primeros elementos de una lista
+(define (tomar-n lista n)
+        (cond 
+              [(= n 0) '()]
+              [(> n 0) 
+                       (cons (car lista) (tomar-n (cdr lista) (- n 1)))]))
 
+; botar-n: devuelve la lista sin los primeros n elementos
+(define (botar-n lista n)
+        (cond
+             [(> n 0) (botar-n (cdr lista) (- n 1))]
+             [(and (not (null? lista)) (= n 0)) (cons (car lista) (botar-n (cdr lista) n))]
+             [(null? lista) '()]))
 
+; preparar-jugador: 
 
 
 ; ==================================================================
