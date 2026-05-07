@@ -1,4 +1,11 @@
 #lang racket
+(provide init-jugador
+         get-mazo
+         get-mano
+         get-activo
+         get-banca
+         get-descarte
+         get-premios)
 
 ; =============================
 ; ======== TDA JUGADOR ========
