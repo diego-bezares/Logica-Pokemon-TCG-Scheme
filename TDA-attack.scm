@@ -42,13 +42,13 @@
 
 ; ======= MODIFICADORES =======
 (define (set-cost attack nw-cost)
-        (list nw-cost (get-nombre attack) (get-descipcion attack) (get-fn attack)))
+        (list nw-cost (get-nombre attack) (get-descripcion attack) (get-fn attack)))
 (define (set-nombre attack nw-nombre)
-        (list (get-cost attack) nw-nombre (get-descipcion attack) (get-fn attack)))
+        (list (get-cost attack) nw-nombre (get-descripcion attack) (get-fn attack)))
 (define (set-descripcion attack nw-descripcion)
         (list (get-cost attack) (get-nombre attack) nw-descripcion (get-fn attack)))
 (define (set-fn attack nw-fn)
-        (list (get-cost attack) (get-nombre attack) (get-descipcion attack) nw-fn))
+        (list (get-cost attack) (get-nombre attack) (get-descripcion attack) nw-fn))
 
 
 
