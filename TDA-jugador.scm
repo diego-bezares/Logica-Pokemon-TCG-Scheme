@@ -8,7 +8,8 @@
          get-premios
          set-mano
          set-banca
-         set-activo)
+         set-activo
+         set-mazo)
 
 ; =============================
 ; ======== TDA JUGADOR ========
@@ -51,6 +52,9 @@
         (list-ref jugador 5))
 
 ; ======== MODIFICADORES =======
+(define (set-mazo jugador new-mazo)
+        (init-jugador new-mazo (get-mano jugador) (get-activo jugador) (get-banca jugador) (get-descarte jugador) (get-premios jugador)))
+
 (define (set-mano jugador new-mano)
         (init-jugador (get-mazo jugador) new-mano (get-activo jugador) (get-banca jugador) (get-descarte jugador) (get-premios jugador)))
 
