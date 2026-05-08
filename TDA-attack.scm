@@ -29,17 +29,6 @@
         (list cost nombre descripcion fn))
 
 
-; === FUNCIÓN DE PERTENENCIA ==
-(define (attack? attack)
-        (and 
-             (list? attack)
-             (= 4 (length attack))
-             (list? (get-cost attack))
-             (null? (member #f (map (lambda (e) (element-type? e)) (get-cost attack))))
-             (string? (get-nombre attack))
-             (string? (get-descipcion attack))
-             (procedure? (get-fn attack))))
-
 
 ; ========= SELECTORES ========
 (define (get-cost attack)
