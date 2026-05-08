@@ -116,8 +116,8 @@ colorless)))
                      (debilidad-texto (formatear-simbolo-opcional (get-debilidad carta)))
                      (resistencia-texto (formatear-simbolo-opcional (get-resistencia carta)))
                      ; Datos dinámicos
-                     (energias-texto "0 energías") ;;**********
-                     (dano-texto "0 daño") ;;**********
+                     (energias-texto (string-append (number->string (length (get-energias carta))) " energías"))
+                     (dano-texto (string-append (number->string (get-dano carta)) " daño"))
                      (estado-texto "normal") ;;***********
                     )
                     ; Construcción del string
@@ -578,6 +578,37 @@ colorless)))
                                    (nuevo-jugador (set-mano jugador-con-evo-banca mano-sin-evo)))
          
                                    (if (= turno 1) (set-jugador1 juego nuevo-jugador) (set-jugador2 juego nuevo-jugador)))))]))
+
+
+; RF13
+; Dom: juego (Juego) X cartaEntrenador (Card) X FuncionAdditionalArguments
+; Rec: Juego
+(define (useTrainerCard juego cartaEntrenador FuncionAdditionalArguments)
+          (let* ((turno (get-turno juego))
+                 (jugador-actual (if (= turno 1) (get-jugador1 juego) (get-jugador2 juego)))
+                 (mano-actual (get-mano jugador-actual))
+                 (descarte-actual (get-descarte jugador-actual)))
+         
+                 (cond
+                      ; VALIDADOR: La carta no es de entrenador y no está en la mano
+                      [(not (and (eq? (get-tipoCarta cartaEntrenador) 'trainer) 
+                            (member cartaEntrenador mano-actual)))
+                      (begin
+                            (write "Error: Carta de entrenador inválida o no está en la mano.\n")
+                            juego)]
+         
+                [else
+                     (let* (; Sacar de la mano la carta de entrenador y la mandamos al descarte
+                           (nueva-mano (remover-primera-ocurrencia cartaEntrenador mano-actual))
+                           (nuevo-descarte (append descarte-actual (list cartaEntrenador)))
+                           (funcion (get-accion cartaEntrenador))
+              
+                           ; Empaquetamos el jugador y el juego INTERMEDIO
+                           (jugador-intermedio (set-descarte (set-mano jugador-actual nueva-mano) nuevo-descarte))
+                           (juego-intermedio (if (= turno 1) (set-jugador1 juego jugador-intermedio) (set-jugador2 juego jugador-intermedio))))
+              
+         ;Por último, ejecutamos la función inyectada sobre el juego intermedio
+         (funcion juego-intermedio FuncionAdditionalArguments))])))
 
 
 
