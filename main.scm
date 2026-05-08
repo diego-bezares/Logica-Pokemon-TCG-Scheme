@@ -1,5 +1,10 @@
 #lang racket
-
+(require "TDA-card.scm")
+(require "TDA-juego.scm")
+(require "TDA-deck.scm")
+(require "TDA-attack.scm")
+(require "TDA-carta-en-juego.scm")
+(require "TDA-jugador.scm")
 ;; Enumeración de tipos de carta
 (define CARD-TYPE '(pokemon energy trainer))
 (define (card-type? t)
@@ -95,7 +100,7 @@ colorless)))
 ; formatear-simbolo-opcional: formatea el campo de Resistencia o Debilidad que tenga un null para que no fallen los string-append
 ; Dom: Symbol o null
 ; Rec: String
-(define (formatear-string-opcional valor)
+(define (formatear-simbolo-opcional valor)
         (if (null? valor)
             "Ninguna"
             valor))
@@ -534,7 +539,7 @@ colorless)))
              [(or (null? (get-evo cartaPokemonEvo)) (not (equal? (get-nombre-card (get-carta-base cartaPokemon)) (get-evo cartaPokemonEvo))))
                   (begin
                         (write "Error: Evolución inválida")
-                        juego))]
+                        juego)]
              ; ÉXITO: Se evoluciona el pokemon
              [else
                   (let* (; Extraemos datos claves para la evolución
