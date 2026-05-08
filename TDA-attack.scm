@@ -3,7 +3,7 @@
          attack?
          get-cost
          get-nombre
-         get-descipcion
+         get-descripcion
          get-fn
          set-cost
          set-nombre
