@@ -5,7 +5,11 @@
          get-cartas-asociadas
          get-energias
          get-dano
-         get-estado)
+         get-estado
+         set-cartas-asociadas
+         set-energias
+         set-dano
+         set-estado)
 
 ; =============================
 ; ==== TDA CARTA-EN-JUEGO =====
@@ -49,5 +53,31 @@
 
 (define (get-estado cartaEnJuego)
         (list-ref cartaEnJuego 5))
+
+; =============================
+; ======= MODIFICADORES =======
+; =============================
+(define (set-cartas-asociadas cartaEnJuego new-asociadas)
+        (list (get-id cartaEnJuego) (get-carta-base cartaEnJuego) new-asociadas (get-energias cartaEnJuego) (get-dano cartaEnJuego) (get-estado cartaEnJuego)))
+
+(define (set-energias cartaEnJuego new-energias)
+        (list (get-id cartaEnJuego) (get-carta-base cartaEnJuego) (get-cartas-asociadas cartaEnJuego) new-energias (get-dano cartaEnJuego) (get-estado cartaEnJuego)))
+
+(define (set-dano cartaEnJuego new-dano)
+        (list (get-id cartaEnJuego) (get-carta-base cartaEnJuego) (get-cartas-asociadas cartaEnJuego) (get-energias cartaEnJuego) new-dano (get-estado cartaEnJuego)))
+
+(define (set-estado cartaEnJuego new-estado)
+        (list (get-id cartaEnJuego) (get-carta-base cartaEnJuego) (get-cartas-asociadas cartaEnJuego) (get-energias cartaEnJuego) (get-dano cartaEnJuego) new-estado))
+
+
+
+
+
+
+
+
+
+
+
 
 
