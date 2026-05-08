@@ -35,7 +35,7 @@
         (list-ref attack 0))
 (define (get-nombre attack)
         (list-ref attack 1))
-(define (get-descipcion attack)
+(define (get-descripcion attack)
         (list-ref attack 2))
 (define (get-fn attack)
         (list-ref attack 3))
