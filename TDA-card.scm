@@ -1,5 +1,6 @@
 #lang racket
-(provide get-tipoCarta
+(provide initCard
+         get-tipoCarta
          get-nombre-card
          get-evo
          get-trainerType
@@ -46,41 +47,9 @@
 ; descripcion -> String
 ; fnAccion -> F
 
-
-
-; ===================================
-; =========== FUNCIONES AUX =========
-; ===================================
-()
-
-
-
-
-
 ; ======= CONSTRUCTOR ========
 (define (initCard tipoCarta nombre . atributos-especificos)
         (cons tipoCarta (cons nombre atributos-especificos)))
-
-; == FUNCIÓN DE PERTENENCIA ==
-(define (card? card)
-        (and (list? card)
-             (string? (get-nombre-card card))
-             (card-type? (get-tipoCarta card))
-             (cond 
-                   [(eq? (get-tipoCarta card) 'pokemon)
-                         (and (string? (get-evo card))
-                              (and (integer? (get-ps card)) (> (get-ps card) 0))
-                              (element-type? (get-tipo-poke card))
-                              (element-type? (get-debilidad card))
-                              (element-type? (get-resistencia card))
-                              (integer? (get-coste-ret card))
-                              (boolean? (get-ex card))
-                              (attack? (get-habilidad card))
-                              (map (lambda (x) (attack? x)) (get-ataques card)))]
-                   [(eq? (get-tipoCarta card) 'trainer)
-                         (and (string? (get-trainerType card))
-                              (string? (get-description card))
-                              (procedure? (get-accion card)))])))
 
 ; ========= SELECTORES ========
 (define (get-tipoCarta card)
@@ -112,7 +81,6 @@
 (define (get-ataques card)
         (list-ref card 10))
 
-; ======== MODIFICADORES =======
 
 
 
