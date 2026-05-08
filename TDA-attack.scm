@@ -1,6 +1,5 @@
 #lang racket
 (provide initAttack
-         attack?
          get-cost
          get-nombre
          get-descripcion
