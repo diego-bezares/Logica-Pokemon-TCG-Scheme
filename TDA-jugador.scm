@@ -7,7 +7,8 @@
          get-descarte
          get-premios
          set-mano
-         set-banca)
+         set-banca
+         set-activo)
 
 ; =============================
 ; ======== TDA JUGADOR ========
