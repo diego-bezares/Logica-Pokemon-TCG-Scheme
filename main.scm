@@ -123,7 +123,7 @@ colorless)))
                      ; Datos dinámicos
                      (energias-texto (string-append (number->string (length (get-energias carta))) " energías"))
                      (dano-texto (string-append (number->string (get-dano carta)) " daño"))
-                     (estado-texto "normal") ;;***********
+                     (estado-texto (get-estado carta))
                     )
                     ; Construcción del string
                     (string-append
