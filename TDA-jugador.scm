@@ -46,3 +46,19 @@
 
 (define (get-premios jugador)
         (list-ref jugador 5))
+
+; ======== MODIFICADORES =======
+(define (set-mano jugador new-mano)
+        (init-jugador (get-mazo jugador) new-mano (get-activo jugador) (get-banca jugador) (get-descarte jugador) (get-premios jugador)))
+
+(define (set-banca jugador new-banca)
+        (init-jugador (get-mazo jugador) (get-mano jugador) (get-activo jugador) new-banca (get-descarte jugador) (get-premios jugador)))
+
+
+
+
+
+
+
+
+
