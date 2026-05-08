@@ -209,22 +209,29 @@ colorless)))
 ; ==================================================================
 
 ; RF02
-; Dom:
-; Rec:
+; Dom: cost (List ELEMENT-TYPE) X nombre(string) X texto (string) X función de daño
+; Rec: attack
 (define (attack cost nombre texto funcion-daño)
         (initAttack cost nombre texto funcion-daño))
 
 
 ; RF03
-; Dom:
-; Rec:
+; Dom: 
+; Si es de tipo Pokémon:
+; tipoCarta (CARD-TYPE) X nombre (string) X EvolucionaDe (string) X PS (int+) X tipoPokemon (ELEMENT-TYPE) X Debilidad (ELEMENT-TYPE) 
+; X Resistencia (ELEMENT-TYPE) X CosteRetirada (int) X EsEX (boolean) X habilidad (Attack) X ataques (List attack)
+; Si es de tipo energía:
+; tipoCarta (CARD-TYPE) X nombre (string) X tipoEnergia (ELEMENT-TYPE)
+; Si es de tipo entrenador:
+; tipoCarta (CARD-TYPE) X nombre (string) X trainerType (string) X texto (string) X función de acción
+; Rec: card
 (define (card tipoCarta nombre . atributos-especificos)
         (initCard tipoCarta nombre atributos-especificos))
 
 
 ; RF04
-; Dom:
-; Rec:
+; Dom: cartas (List card)
+; Rec: deck
 (define (deck . cartas)
   (cond
     ; Validamos tamaño
@@ -244,8 +251,8 @@ colorless)))
 
 
 ; RF05
-; Dom:
-; Rec:
+; Dom: mazo (deck) X seed (int+)
+; Rec: deck
 (define (shuffleDeck mazo seed)
         (cond
              [(null? mazo) '()]
@@ -258,8 +265,8 @@ colorless)))
 
 
 ; RF06
-; Dom:
-; Rec: 
+; Dom: mazo (deck) X mazo (deck) X seed (int+)
+; Rec: Juego
 (define (initGame mazo1 mazo2 seed)
         (let* ((seed-j1 seed)
                (seed-j2 (randomPuro (randomPuro (randomPuro seed))))
@@ -273,8 +280,8 @@ colorless)))
 
 
 ; RF07
-; Dom:
-; Rec:
+; Dom: juego (Juego) X numero_jugador (int)
+; Rec: string
 (define (printGame juego numero_jugador)
         (let* (; Extraemos los jugadores y el turno del TDA Juego
               (jugador1 (get-jugador1 juego))
@@ -342,8 +349,8 @@ colorless)))
 
 
 ; RF08
-; Dom: 
-; Rec:
+; Dom: juego (Juego) X cartaDeLaMano (card)
+; Rec: Juego
 (define (playToBench juego cartaDeLaMano)
         (let* (; Extraemos los datos del jugador actual
               (turno (get-turno juego))
@@ -390,8 +397,8 @@ colorless)))
 
 
 ; RF09
-; Dom:
-; Rec:
+; Dom: juego (Juego) X cartaDeLaBanca (card)
+; Rec: Juego
 (define (changeActivePokemon juego cartaBanca)
         (let* (; Extraemos al jugador actual
               (turno (get-turno juego))
@@ -452,8 +459,8 @@ colorless)))
 
 
 ; RF10
-; Dom:
-; Rec:
+; Dom: juego (Juego)
+; Rec: Juego
 (define (drawCardFromDeck juego)
         (let* (; Extraemos los datos necesarios
                (turno (get-turno juego))
@@ -478,6 +485,52 @@ colorless)))
                                 (if (= turno 1) (set-jugador1 juego nuevo-jugador) (set-jugador2 juego nuevo-jugador)))])))
 
 
+; RF11
+; Dom: juego (Juego) X cartaPokemon (card) X cartaEnergia (card)
+; Rec: Juego
+(define (useEnergyCard juego cartaPokemon cartaEnergia)
+          (let* ((turno (get-turno juego))
+                (jugador-actual (if (= turno 1) (get-jugador1 juego) (get-jugador2 juego)))
+                (mano-actual (get-mano jugador-actual)))
+            
+                (cond ; VALIDADOR: La energia debe estar en la mano y la carta debe ser de tipo energy
+                     [(or (not (member cartaEnergia mano-actual)) (not (eq? (get-tipoCarta cartaEnergia) 'energy)))
+                          (begin
+                                 (write "Error: Jugada inválida")
+                                 juego)]
+                 
+                      ; ÉXITO: Se coloca la energía al pokemon
+                     [else
+                          (let* (; Extraemos datos claves
+                                (banca-actual (get-banca jugador-actual))
+                                (activo-actual (get-activo jugador-actual))
+
+                                ; Quitamos la energía de la mano
+                                (mano-sin-energia (remover-primera-ocurrencia cartaEnergia mano-actual))
+
+                                ; Construimos el pokemon con la energía asociada
+                                (poke-con-energia (set-energias cartaPokemon (append (get-energias cartaPokemon) (list cartaEnergia)))))
+
+                                ; Verificamos si el pokemon que vamos a incorporarle la energía es el activo o no
+                                (if (equal? cartaPokemon activo-actual)
+                                     ; Caso Vedadero: Actualizamos datos
+                                     (let* (; Cambiamos al activo y la mano
+                                           (jugador-con-energia-activo (set-activo jugador-actual poke-con-energia))
+                                           (nuevo-jugador (set-mano jugador-con-energia-activo mano-sin-energia)))
+
+                                           (if (= turno 1) (set-jugador1 juego nuevo-jugador) (set-jugador2 juego nuevo-jugador)))
+
+                                     ; Caso Falso
+                                     (let* (; Recorremos la banca. Si encontramos la carta vieja, ponemos la nueva. Si no, dejamos la que estaba.
+                                           (nueva-banca (map (lambda (p) (if (equal? p cartaPokemon) poke-con-energia p)) banca-actual))
+         
+                                           ; Armamos el jugador y el juego
+                                           (jugador-con-energia-banca (set-banca jugador-actual nueva-banca))
+                                           (nuevo-jugador (set-mano jugador-con-energia-banca mano-sin-energia)))
+         
+                                           (if (= turno 1) (set-jugador1 juego nuevo-jugador) (set-jugador2 juego nuevo-jugador)))))])))
+
+
 
 
 
@@ -486,7 +539,7 @@ colorless)))
 ; Rec:
 (define (evolvePokemon juego cartaPokemon cartaPokemonEvo)
         (cond ; VALIDADOR: La carta a evolucionar no tiene evolucion o la carta a la que se quiere evolucionar no es compatible
-             [(or (null? (get-evo cartaPokemonEvo)) (not (equal? (get-nombre-card cartaPokemon) (get-evo cartaPokemonEvo)))
+             [(or (null? (get-evo cartaPokemonEvo)) (not (equal? (get-nombre-card (get-carta-base cartaPokemon)) (get-evo cartaPokemonEvo))))
                   (begin
                         (write "Error: Evolución inválida")
                         juego))]
@@ -505,19 +558,26 @@ colorless)))
                          ; Construimos el pokemon evolucionado
                          (poke-evo (set-carta-base 
                                    (set-cartas-asociadas cartaPokemon (append (get-cartas-asociadas cartaPokemon) (list cartaPokemon))) 
-                                   cartaPokemonEvo))
+                                   cartaPokemonEvo)))
 
                          ; Verificamos si el pokemon que vamos a evolucionar es el activo o no
-                         (if (equal? (get-nombre-card cartaPokemon) (get-nombre-card activo-actual))
+                         (if (equal? cartaPokemon activo-actual)
                              ; Caso Vedadero: Actualizamos datos
                              (let* (; Cambiamos al activo y la mano
                                     (jugador-con-evo-activo (set-activo jugador-actual poke-evo))
                                     (nuevo-jugador (set-mano jugador-con-evo-activo mano-sin-evo)))
 
-                                   ((if (= turno 1) (set-jugador1 juego nuevo-jugador) (set-jugador2 juego nuevo-jugador))))
+                                   (if (= turno 1) (set-jugador1 juego nuevo-jugador) (set-jugador2 juego nuevo-jugador)))
 
                              ; Caso Falso
-                             ))]))
+                             (let* (; Recorremos la banca. Si encontramos la carta vieja, ponemos la nueva. Si no, dejamos la que estaba.
+                                   (nueva-banca (map (lambda (p) (if (equal? p cartaPokemon) poke-evo p)) banca-actual))
+         
+                                   ; Armamos el jugador y el juego
+                                   (jugador-con-evo-banca (set-banca jugador-actual nueva-banca))
+                                   (nuevo-jugador (set-mano jugador-con-evo-banca mano-sin-evo)))
+         
+                                   (if (= turno 1) (set-jugador1 juego nuevo-jugador) (set-jugador2 juego nuevo-jugador)))))]))
 
 
 
