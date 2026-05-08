@@ -9,7 +9,9 @@
          set-mano
          set-banca
          set-activo
-         set-mazo)
+         set-mazo
+         set-descarte
+         set-premios)
 
 ; =============================
 ; ======== TDA JUGADOR ========
@@ -25,8 +27,6 @@
 ; banca -> List (card)
 ; descarte -> List (card)
 ; premios -> List (card)
-
-
 
 ; ========= CONSTRUCTOR =======
 (define (init-jugador mazo mano activo banca descarte premios)
@@ -63,6 +63,12 @@
 
 (define (set-banca jugador new-banca)
         (init-jugador (get-mazo jugador) (get-mano jugador) (get-activo jugador) new-banca (get-descarte jugador) (get-premios jugador)))
+
+(define (set-descarte jugador new-descarte)
+        (init-jugador (get-mazo jugador) (get-mano jugador) (get-activo jugador) (get-banca jugador) new-descarte (get-premios jugador)))
+
+(define (set-premios jugador new-premios)
+        (init-jugador (get-mazo jugador) (get-mano jugador) (get-activo jugador) (get-banca jugador) (get-descarte jugador) new-premios))
 
 
 
