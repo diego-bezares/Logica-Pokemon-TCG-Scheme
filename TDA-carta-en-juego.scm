@@ -9,7 +9,8 @@
          set-cartas-asociadas
          set-energias
          set-dano
-         set-estado)
+         set-estado
+         set-carta-base)
 
 ; =============================
 ; ==== TDA CARTA-EN-JUEGO =====
@@ -57,8 +58,11 @@
 ; =============================
 ; ======= MODIFICADORES =======
 ; =============================
+(define (set-carta-base cartaEnJuego new-carta-base)
+        (list (get-id cartaEnJuego) new-carta-base new-asociadas (get-energias cartaEnJuego) (get-dano cartaEnJuego) (get-estado cartaEnJuego)))
+
 (define (set-cartas-asociadas cartaEnJuego new-asociadas)
-        (list (get-id cartaEnJuego) (get-carta-base cartaEnJuego) new-asociadas (get-energias cartaEnJuego) (get-dano cartaEnJuego) (get-estado cartaEnJuego)))
+        (list (get-id cartaEnJuego) (get-carta-base cartaEnJuego) (get-cartas-asociadas cartaEnJuego) (get-energias cartaEnJuego) (get-dano cartaEnJuego) (get-estado cartaEnJuego)))
 
 (define (set-energias cartaEnJuego new-energias)
         (list (get-id cartaEnJuego) (get-carta-base cartaEnJuego) (get-cartas-asociadas cartaEnJuego) new-energias (get-dano cartaEnJuego) (get-estado cartaEnJuego)))
