@@ -41,7 +41,7 @@
 (define trainer-base (card 'trainer "Pocion" "objeto" "Cura 30 PS" accion-curar))
 
 ; RF04: 3 Ejemplos de Mazos (Usamos apply para pasar la lista de 60 cartas al constructor deck)
-(define lista-cartas-1 (append (clonar-carta poke-base 20) (clonar-carta energia-base 20) (clonar-carta trainer-base 20)))
+(define lista-cartas-1 (append (clonar-carta poke-base 4) (clonar-carta poke-evo 2) (clonar-carta energia-base 34) (clonar-carta trainer-base 20)))
 (define mazo1 (apply deck lista-cartas-1))
 (define mazo2 (apply deck lista-cartas-1))
 (define mazo3 (apply deck lista-cartas-1))
