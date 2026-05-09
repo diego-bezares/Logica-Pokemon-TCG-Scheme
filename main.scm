@@ -191,7 +191,7 @@ colorless)))
 (define (carta-es-legal? carta mazo)
         (cond
              [(eq? (get-tipoCarta carta) 'energy) #t]
-             [(> 4 (contar-copias (get-nombre-card carta) mazo)) #t]
+             [(> 5 (contar-copias (get-nombre-card carta) mazo)) #t]
              [else #f]))
 
 ; ==================================================================
