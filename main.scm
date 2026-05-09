@@ -5,6 +5,8 @@
 (require "TDA-attack.scm")
 (require "TDA-carta-en-juego.scm")
 (require "TDA-jugador.scm")
+
+(provide (all-defined-out))
 ;; Enumeración de tipos de carta
 (define CARD-TYPE '(pokemon energy trainer))
 (define (card-type? t)
