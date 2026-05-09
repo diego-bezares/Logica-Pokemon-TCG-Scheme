@@ -84,7 +84,7 @@
 (display ">> Probando RF08: playToBench\n")
 ; Sacamos un bulbasaur de la mano del jugador actual para la prueba
 (define mano-actual (get-mano (if (= (get-turno juego-test1) 1) (get-jugador1 juego-test1) (get-jugador2 juego-test1))))
-(define carta-a-bajar (car mano-actual)) ; Tomamos la primera carta (sabemos que hay Bulbasaurs por la semilla)
+(define carta-a-bajar (car (filter (lambda (c) (and (eq? (get-tipoCarta c) 'pokemon) (null? (get-evo c)))) mano-actual)))
 
 (define juego-banca1 (playToBench juego-test1 carta-a-bajar))
 (define juego-banca2 (playToBench juego-banca1 carta-a-bajar))
@@ -98,16 +98,20 @@
 
 (define juego-activo1 (changeActivePokemon juego-banca1 poke-en-banca))
 (define print4 (printGame juego-activo1 1))
+(display print4)
 ; Las siguientes 2 pruebas intentan cambiar sobre un juego que ya tiene activo (falla intencional controlada) o sobre los otros juegos
 (define juego-activo2 (changeActivePokemon juego-banca2 poke-en-banca))
 (define juego-activo3 (changeActivePokemon juego-banca3 poke-en-banca))
 (define print5 (printGame juego-activo3 1))
+(display print5)
 
 ; RF10: drawCardFromDeck
 (display ">> Probando RF10: drawCardFromDeck\n")
 (define juego-robo1 (drawCardFromDeck juego-activo1))
 (define juego-robo2 (drawCardFromDeck juego-robo1))
 (define juego-robo3 (drawCardFromDeck juego-robo2))
+(define print6 (printGame juego-robo2 1))
+(display print6)
 
 ; RF11: useEnergyCard
 (display ">> Probando RF11: useEnergyCard\n")
@@ -119,6 +123,9 @@
 (define juego-energia1 (useEnergyCard juego-robo3 poke-objetivo energia-mano))
 (define juego-energia2 (useEnergyCard juego-energia1 poke-objetivo energia-mano))
 (define juego-energia3 (useEnergyCard juego-energia2 poke-objetivo energia-mano))
+(define print7 (printGame juego-energía2 1))
+(display print7)
+
 
 ; RF12: evolvePokemon 
 (display ">> Probando RF12: evolvePokemon\n")
@@ -131,12 +138,21 @@
 (define juego-evo1 (evolvePokemon juego-evo-preparado poke-objetivo poke-evo))
 (define juego-evo2 (evolvePokemon juego-evo-preparado poke-objetivo poke-evo)) 
 (define juego-evo3 (evolvePokemon juego-evo-preparado poke-objetivo poke-evo))
+(define print8 (printGame juego-evo1 1))
+(display print8)
 
-; RF13: useTrainerCard
+; RF13: useTrainerCard (3 ejemplos usando la poción)
 (display ">> Probando RF13: useTrainerCard\n")
-(define trainer-mano (car (filter (lambda (c) (eq? (get-tipoCarta c) 'trainer)) nueva-mano-evo)))
-(define juego-trainer1 (useTrainerCard juego-evo-preparado trainer-mano '()))
-(define juego-trainer2 (useTrainerCard juego-trainer1 trainer-mano '()))
-(define juego-trainer3 (useTrainerCard juego-trainer2 trainer-mano '()))
+; Forzamos a tener a Pocion en la mano para asegurar que la prueba corra
+(define nueva-mano-trainer (cons trainer-base (get-mano jugador-actual-evo)))
+(define jugador-trainer-forzado (set-mano jugador-actual-evo nueva-mano-trainer))
+(define juego-trainer-preparado (if (= (get-turno juego-energia1) 1) 
+                                    (set-jugador1 juego-energia1 jugador-trainer-forzado) 
+                                    (set-jugador2 juego-energia1 jugador-trainer-forzado)))
+
+(define juego-trainer1 (useTrainerCard juego-trainer-preparado trainer-base '()))
+; Las siguientes 2 llamadas fallarán intencionalmente porque la carta ya se usó y se fue al descarte.
+(define juego-trainer2 (useTrainerCard juego-trainer1 trainer-base '()))
+(define juego-trainer3 (useTrainerCard juego-trainer2 trainer-base '()))
 
 (display "\n==== SCRIPT DE PRUEBAS FINALIZADO SIN ERRORES FATALES ====\n")
