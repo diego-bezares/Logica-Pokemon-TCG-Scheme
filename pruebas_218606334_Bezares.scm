@@ -1,4 +1,10 @@
 #lang racket
+(require "TDA-card.scm")
+(require "TDA-juego.scm")
+(require "TDA-deck.scm")
+(require "TDA-attack.scm")
+(require "TDA-carta-en-juego.scm")
+(require "TDA-jugador.scm")
 (require "main.scm")
 
 ; =================================================================
