@@ -5,7 +5,7 @@
 (require "TDA-attack.scm")
 (require "TDA-carta-en-juego.scm")
 (require "TDA-jugador.scm")
-(require "main.scm")
+(require "main_218606334_BezaresRuz.scm")
 
 ; =================================================================
 ;  STUBS Y FUNCIONES SEÑUELO (Para evitar crashes de RF14 y RF15)
