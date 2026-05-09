@@ -102,16 +102,14 @@
 ; Las siguientes 2 pruebas intentan cambiar sobre un juego que ya tiene activo (falla intencional controlada) o sobre los otros juegos
 (define juego-activo2 (changeActivePokemon juego-banca2 poke-en-banca))
 (define juego-activo3 (changeActivePokemon juego-banca3 poke-en-banca))
-(define print5 (printGame juego-activo3 1))
-(display print5)
+
 
 ; RF10: drawCardFromDeck
 (display ">> Probando RF10: drawCardFromDeck\n")
 (define juego-robo1 (drawCardFromDeck juego-activo1))
 (define juego-robo2 (drawCardFromDeck juego-robo1))
 (define juego-robo3 (drawCardFromDeck juego-robo2))
-(define print6 (printGame juego-robo2 1))
-(display print6)
+
 
 ; RF11: useEnergyCard
 (display ">> Probando RF11: useEnergyCard\n")
@@ -123,8 +121,7 @@
 (define juego-energia1 (useEnergyCard juego-robo3 poke-objetivo energia-mano))
 (define juego-energia2 (useEnergyCard juego-energia1 poke-objetivo energia-mano))
 (define juego-energia3 (useEnergyCard juego-energia2 poke-objetivo energia-mano))
-(define print7 (printGame juego-energía2 1))
-(display print7)
+
 
 
 ; RF12: evolvePokemon 
@@ -138,8 +135,7 @@
 (define juego-evo1 (evolvePokemon juego-evo-preparado poke-objetivo poke-evo))
 (define juego-evo2 (evolvePokemon juego-evo-preparado poke-objetivo poke-evo)) 
 (define juego-evo3 (evolvePokemon juego-evo-preparado poke-objetivo poke-evo))
-(define print8 (printGame juego-evo1 1))
-(display print8)
+
 
 ; RF13: useTrainerCard (3 ejemplos usando la poción)
 (display ">> Probando RF13: useTrainerCard\n")
