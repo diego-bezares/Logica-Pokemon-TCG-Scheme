@@ -225,7 +225,7 @@ colorless)))
 ; tipoCarta (CARD-TYPE) X nombre (string) X trainerType (string) X texto (string) X función de acción
 ; Rec: card
 (define (card tipoCarta nombre . atributos-especificos)
-        (initCard tipoCarta nombre atributos-especificos))
+        (apply initCard tipoCarta nombre atributos-especificos))
 
 
 ; RF04
